@@ -1,5 +1,7 @@
 
-win32ole ‚ğg‚Á‚Ä mdb ‚ÉƒAƒNƒZƒX‚·‚é‚±‚Æ‚ª‚Å‚«‚éB
+win32ole ã‚’ä½¿ã£ã¦ mdb ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã“ã¨ãŒã§ãã‚‹ã€‚
+
+how to use
 
 require 'active_axs'
 # establish connection like active record

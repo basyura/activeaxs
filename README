@@ -1,0 +1,36 @@
+
+win32ole を使って mdb にアクセスすることができる。
+
+require 'active_axs'
+# establish connection like active record
+ActiveAXS::Base.establish_connection(
+  :source => "test.mdb" 
+)
+# Users table
+class User < ActiveAXS::Base ; end
+# Jobs table
+class Job < ActiveAXS::Base ; end
+# ItemTable table
+class ItemTable < ActiveAXS::Base
+  set_table_name "ItemTable"
+end
+
+puts User.find_first(:id => 1)[:name]
+puts Job.find_first(:id => 1)[:name]
+puts ItemTable.find_first(:id => 1)[:name]
+# test find_all without keys
+User.find_all.each {|r|
+  puts r[:id].to_s + " " + r[:name] + " " + r[:description]
+}
+# test find_all with key
+User.find_all(:id => 1).each {|r|
+  puts r[:id].to_s + " " + r[:name] + " " + r[:description]
+}
+# test find_all with order by
+User.find_all(:orderby => "id").each {|r|
+  puts r[:id].to_s + " " + r[:name] + " " + r[:description]
+}
+# test find_by sql
+User.find_by_sql("select * from Users where id=1").each {|r|
+  puts r[:id].to_s + " " + r[:name] + " " + r[:description]
+}

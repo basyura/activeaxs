@@ -1,10 +1,11 @@
 module ActiveAXS
   class Base < ActiveAXS::Core
     def initialize(map={})
-      @map = map
-    end
-    def [](key) 
-      @map[key]
+      sing = class << self; self end
+      map.each_pair{|key,value|
+        #sing.class_eval "def #{key.downcase}; #{value.to_s.inspect}; end" 
+        sing.send :define_method, key.downcase , Proc.new{value}
+      }
     end
     def self.find_first(keys)
       return execute_select(keys).first

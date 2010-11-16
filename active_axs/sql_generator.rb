@@ -23,10 +23,10 @@ module ActiveAXS
         sql << "ORDER BY "
         if orderby.kind_of? String
           sql << orderby
-        elsif orderby.kind_of Array
+        elsif orderby.kind_of? Array
           for i in 0...orderby.length
             sql << "," if i != 0
-            sql << keys[:orderby][i]
+            sql << orderby[i]
           end
         else
           raise Exception.new("not support :orderby's object")

@@ -18,7 +18,7 @@ module ActiveAXS
     end
     def self.establish_connection(config)
       set_source(config[:source]) if config.has_key?(:source)
-      set_user_id(config[:user_id]) if config.has_key?(:uder_id)
+      set_user_id(config[:user_id]) if config.has_key?(:user_id)
       set_password(config[:password]) if config.has_key?(:password)
       create_connection.close
     end

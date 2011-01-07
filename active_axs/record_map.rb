@@ -9,6 +9,8 @@ module ActiveAXS
           # êîíl
           when 131
             value = value.to_i
+          else
+            value = value.to_s.strip
         end
         @map[field.Name] = value
       end

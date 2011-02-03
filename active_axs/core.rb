@@ -78,6 +78,9 @@ module ActiveAXS
       begin 
         connection = create_connection
         rs = connection.execute(sql)
+        if sql =~ /insert/m || sql =~ /delete/m
+          return 1
+        end
         rs.extend ActiveAXS::RecordSet
         fields = rs.Fields
         list   = Array.new

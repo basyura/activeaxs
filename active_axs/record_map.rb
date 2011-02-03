@@ -1,9 +1,11 @@
 
 module ActiveAXS
   class RecordMap
+    attr_reader :fields
     def initialize(record , fields)
-      @map = Hash.new
-      for field in fields
+      @fields = fields
+      @map    = Hash.new
+      for field in @fields
         value = record[field.Name]
         case field.Type
           # êîíl

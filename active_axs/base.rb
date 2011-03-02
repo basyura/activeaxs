@@ -21,15 +21,19 @@ module ActiveAXS
       sql << ")"
       self.class.execute_sql(sql)
     end
+    def self.delete(where = {})
+      raise ArgumentError if where.empty?
+      execute_delete(where)
+    end
     def self.find_first(keys)
-      return execute_select(keys).first
+      execute_select(keys).first
     end
     def self.find_all(keys={})
-      return execute_select(keys)
+      execute_select(keys)
     end
     def self.find_by_sql(sql)
       raise Exception.new("not select sql") if sql.strip !~ /^select/i
-      return execute_sql(sql)
+      execute_sql(sql)
     end
     def method_missing(method , *args)
       if method =~ /.*=/ && args.length == 1

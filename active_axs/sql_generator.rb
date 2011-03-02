@@ -35,5 +35,14 @@ module ActiveAXS
       puts sql if $DEBUG
       sql
     end
+    def self.create_delete_sql(table_name , where)
+      sql = ""
+      where.each_pair do |k , v|
+        sql << " and " if sql != ""
+        sql << "#{k}="
+        sql << (v.kind_of?(String) ? "'#{v}'" : v.to_s)
+      end
+      "delete from #{table_name} where " + sql
+    end
   end
 end

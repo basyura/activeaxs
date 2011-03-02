@@ -71,8 +71,10 @@ module ActiveAXS
       return connection
     end
     def self.execute_select(keys)
-      sql = ActiveAXS::SQLGenerator.create_select_sql(table_name , keys)
-      execute_sql(sql)
+      execute_sql(ActiveAXS::SQLGenerator.create_select_sql(table_name , keys))
+    end
+    def self.execute_delete(where)
+      execute_sql(ActiveAXS::SQLGenerator.create_delete_sql(table_name , where))
     end
     def self.execute_sql(sql)
       begin 

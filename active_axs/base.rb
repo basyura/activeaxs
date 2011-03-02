@@ -3,26 +3,18 @@ module ActiveAXS
   class Base < ActiveAXS::Core
     include Enumerable
     def initialize(map={})
-      fields = []
-      sing = class << self; self end
-      map.each_pair{|key,value|
-        sing.send :define_method, key.downcase , Proc.new{value}
-        fields << key.downcase
-      }
-#      @@fields = fields
-      sing.send :define_method, :fields , Proc.new{fields}
-    end
-#    def self.fields
-#      @@fields
-#    end
-    def each
-      fields.each do |v|
-        yield self.__send__(v)
+      @__stored_map__ = {}
+      map.each_pair do |key , value|
+        @__stored_map__[key.downcase.to_sym] = value
       end
     end
     def save
-      sql = "insert into #{self.class.table_name} values ("
-      each_with_index do |v,index|
+      keys = @__stored_map__.keys
+
+      sql = "insert into #{self.class.table_name} (#{keys.join(',')}) values( "
+
+      keys.each_with_index do |key , index|
+        v = @__stored_map__[key]
         sql << ',' if index != 0
         sql << (v.kind_of?(String) ? "'#{v}'" : v.to_s)
       end
@@ -38,6 +30,15 @@ module ActiveAXS
     def self.find_by_sql(sql)
       raise Exception.new("not select sql") if sql.strip !~ /^select/i
       return execute_sql(sql)
+    end
+    def method_missing(method , *args)
+      if method =~ /.*=/ && args.length == 1
+        @__stored_map__[method.to_s.sub("=","")] = args[0]
+      elsif method !~ /.*=/ && args.empty?
+        @__stored_map__[method]
+      else
+        super
+      end
     end
   end
 end

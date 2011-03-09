@@ -90,7 +90,7 @@ module ActiveAXS
     end
     def method_missing(method , *args)
       if method =~ /.*=/ && args.length == 1
-        @__stored_map__[method.to_s.sub("=","")] = args[0]
+        @__stored_map__[method.to_s.sub("=","").to_sym] = args[0]
       elsif method !~ /.*=/ && args.empty?
         @__stored_map__[method]
       else

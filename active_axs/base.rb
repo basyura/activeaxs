@@ -8,6 +8,7 @@ module ActiveAXS
   end
   class Base < ActiveAXS::Core
     include Enumerable
+
     def self.inherited(subclass)
       super
 
@@ -49,15 +50,18 @@ module ActiveAXS
       #  puts r2["Column_Name"]
       #}
     end
-    def initialize(map={})
+    def initialize(map)
       @__stored_map__ = {}
       map.each_pair do |key , value|
         @__stored_map__[key.downcase.to_sym] = value
       end
     end
+    def ondb?
+      @ondb
+    end
     def save
 
-      raise StandardError.new('not suppoted') if @__stored_map__.empty?
+      #raise StandardError.new('not suppoted') if @__stored_map__.empty?
 
       keys = @__stored_map__.keys
       sql = "insert into #{self.class.table_name} (#{keys.join(',')}) values( "

@@ -1,0 +1,50 @@
+
+      set.each_record{|r|
+        table_name = r["Table_Name"]
+        schemas = connection.OpenSchema(4 , [nil, nil, table_name])
+        schemas.extend ActiveAXS::RecordSet
+        puts table_name
+        schemas.each_record{|r2|
+          puts r2["Column_Name"]
+        }
+      }
+       get fields
+      schemas = connection.OpenSchema(4 , [nil, nil, table_name])
+      schemas.extend ActiveAXS::RecordSet
+      schemas.each_record{|r2|
+        puts r2["Column_Name"] + "-" + r2["Data_Type"].to_s
+      }
+      primary = connection.OpenSchema(28 , ["pubs", "dbo", table_name])
+      primary.extend ActiveAXS::RecordSet
+      primary.each_record{|r2|
+        puts r2["Column_Name"]
+      }
+
+
+
+      # I want to get primary key. but I can't.
+      
+      set = connection.OpenSchema(20)
+      set.extend ActiveAXS::RecordSet
+      
+      set.each_record{|r|
+        table_name = r["Table_Name"]
+        schemas = connection.OpenSchema(4 , [nil, nil, table_name])
+        schemas.extend ActiveAXS::RecordSet
+        puts table_name
+        schemas.each_record{|r2|
+          puts r2["Column_Name"]
+        }
+      }
+       get fields
+      schemas = connection.OpenSchema(4 , [nil, nil, table_name])
+      schemas.extend ActiveAXS::RecordSet
+      schemas.each_record{|r2|
+        puts r2["Column_Name"] + "-" + r2["Data_Type"].to_s
+      }
+      primary = connection.OpenSchema(28 , ["pubs", "dbo", table_name])
+      primary.extend ActiveAXS::RecordSet
+      primary.each_record{|r2|
+        puts r2["Column_Name"]
+      }
+

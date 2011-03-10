@@ -84,6 +84,18 @@ module ActiveAXS
       raise Exception.new("not select sql") if sql.strip !~ /^select/i
       execute_sql(sql)
     end
+    
+    #
+    def field_names
+      get_schema.map{|v| v[0]}
+    end
+
+    #
+    def each_field
+      field_names.each do |v|
+        yield v , @__stored_map__[v]
+      end
+    end
 
     # accessor for record map
     def method_missing(method , *args)

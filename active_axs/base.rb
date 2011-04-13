@@ -97,6 +97,9 @@ module ActiveAXS
       end
     end
 
+    def [](key)
+      @__stored_map__[key.to_sym]
+    end
     # accessor for record map
     def method_missing(method , *args)
       if method =~ /.*=/ && args.length == 1

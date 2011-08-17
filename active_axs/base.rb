@@ -59,6 +59,7 @@ module ActiveAXS
         sql << (v.kind_of?(String) ? "'#{v}'" : v.to_s)
       end
       sql << ")"
+      puts sql if $DEBUG
       self.class.execute_sql(sql)
     end
 
